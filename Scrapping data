@@ -1,0 +1,20 @@
+from selenium import webdriver
+from BeautifulSoup import BeautifulSoup
+import pandas as pd
+driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
+title=[] #List to store titles
+summary=[] #List to store Summaries
+link=[] #List to store links
+driver.get("<a href="https://news.un.org/en/news/region/middle-east")
+content = driver.page_source
+soup = BeautifulSoup(content)
+for a in soup.findAll('a',href=True, attrs={'class':'views-row views-row-1 views-row-odd views-row-first clearfix'}):
+title=a.find('div', attrs={'class':'story-title'})
+summary=a.find('div', attrs={'class':'news-body'})
+link=a.find('div', attrs={'class':'sharethis pull-right'})
+title.append(title.text)
+summary.append(summary.text)
+link.append(link.text)
+python web-s.py
+f = pd.DataFrame({'title Name':title,'summary':summary,'link':link}) 
+df.to_csv('title.csv', index=False, encoding='utf-8')
